@@ -4,6 +4,8 @@ Some examples of using Terraform to create examples in AWS.
 
 These examples are simple and modest, but not guaranteed to be in the free tier of AWS. Please review all examples thoroughly. Some examples may require a subscription to AMI (e.g. nginx).
 
+The spirit of the examples is [SSCCE](https://sscce.org/).
+
 ### Prerequisites
 
 * `terraform` via Homebrew
