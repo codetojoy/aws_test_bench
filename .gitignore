@@ -1,6 +1,7 @@
 **/my_setvars.sh
 
 **/.terraform/
+**/.terraform.*
 
 **/*.tfstate
 **/*.tfstate.*
