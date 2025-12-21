@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export AWS_ACCESS_KEY_ID=CHANGE_ME
+export AWS_SECRET_ACCESS_KEY=CHANGE_ME
