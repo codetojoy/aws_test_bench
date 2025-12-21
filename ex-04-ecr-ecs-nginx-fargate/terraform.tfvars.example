@@ -1,0 +1,11 @@
+# Example terraform.tfvars file
+# Copy this to terraform.tfvars and customize as needed
+
+# aws_region      = "us-east-1"
+# repository_name = "demo-app"
+# image_tag       = "latest"
+
+# ECS Configuration (minimal resources by default)
+# ecs_task_cpu      = "256"   # 0.25 vCPU (minimal)
+# ecs_task_memory   = "512"   # 512 MB (minimal)
+# ecs_desired_count = 1       # Number of tasks to run
