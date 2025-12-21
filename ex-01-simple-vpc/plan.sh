@@ -20,6 +20,6 @@ check_env_var "AWS_SECRET_ACCESS_KEY"
 # -------------------------------------------
 # main
 
-aws s3 ls
-
-echo "Ready."
+terraform validate
+terraform fmt
+terraform plan 
