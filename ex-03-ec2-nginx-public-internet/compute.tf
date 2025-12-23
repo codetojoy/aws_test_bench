@@ -11,7 +11,7 @@ resource "aws_instance" "web" {
     delete_on_termination = true
   }
   tags = merge(local.common_tags, {
-    Name = "aws-test-bench-ex-03-web"
+    Name = "test-bench-ex-03-web"
   })
 
   lifecycle {
@@ -21,10 +21,10 @@ resource "aws_instance" "web" {
 
 resource "aws_security_group" "public_http_traffic" {
   description = "open ports 443 and 80"
-  name        = "aws-test-bench-ex-03-public-http-traffic"
+  name        = "test-bench-ex-03-public-http-traffic"
   vpc_id      = aws_vpc.main.id
   tags = merge(local.common_tags, {
-    Name = "aws-test-bench-ex-03-sg"
+    Name = "test-bench-ex-03-sg"
   })
 }
 

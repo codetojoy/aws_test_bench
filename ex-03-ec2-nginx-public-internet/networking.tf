@@ -2,7 +2,7 @@
 locals {
   common_tags = {
     ManagedBy = "Terraform"
-    Project   = "aws-test-bench-ex-03"
+    Project   = "test-bench-ex-03"
   }
 }
 
@@ -10,7 +10,7 @@ resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 
   tags = merge(local.common_tags, {
-    Name = "aws-test-bench-ex-03-main"
+    Name = "test-bench-ex-03-main"
   })
 }
 
@@ -19,7 +19,7 @@ resource "aws_subnet" "public_subnet" {
   cidr_block = "10.0.0.0/24"
 
   tags = merge(local.common_tags, {
-    Name = "aws-test-bench-ex-03-public"
+    Name = "test-bench-ex-03-public"
   })
 }
 
