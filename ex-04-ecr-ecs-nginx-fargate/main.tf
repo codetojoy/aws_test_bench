@@ -50,7 +50,7 @@ resource "aws_ecr_repository" "demo" {
 resource "local_file" "dockerfile" {
   content  = <<-EOF
     FROM nginx:alpine
-    RUN echo '<h1>Hello from ECR Demo!</h1>' > /usr/share/nginx/html/index.html
+    RUN echo '<pre>TRACER :: SUCCESS from test-bench-ex-04</pre>' > /usr/share/nginx/html/index.html
     EXPOSE 80
     CMD ["nginx", "-g", "daemon off;"]
   EOF

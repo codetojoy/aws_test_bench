@@ -2,7 +2,7 @@
 # Copy this to terraform.tfvars and customize as needed
 
 # aws_region      = "us-east-1"
-# repository_name = "demo-app"
+# repository_name = "test-bench-ex-04"
 # image_tag       = "latest"
 
 # ECS Configuration (minimal resources by default)
