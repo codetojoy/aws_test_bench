@@ -21,7 +21,7 @@ resource "random_id" "bucket_suffix" {
 }
 
 resource "aws_s3_bucket" "example_bucket" {
-  bucket = "aws-test-bench-example-${random_id.bucket_suffix.hex}"
+  bucket = "test-bench-ex02-${random_id.bucket_suffix.hex}"
 }
 
 output "bucket_name" {
