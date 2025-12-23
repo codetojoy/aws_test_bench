@@ -21,8 +21,9 @@
 
 * use `./get-task-ip.sh` to get IP address for browser
     * this is task only, so it can change
-    * also: browse to ECS -> cluster -> tasks -> task instance -> Networking
     * `get-task-ip.sh` doesn't always work?
+    * alternative: browse to ECS -> cluster -> tasks -> task instance -> Networking
+        * get public IP and use http://IP:32768
 * in AWS console, browse ECR
 * in AWS console, browse ECS
 
