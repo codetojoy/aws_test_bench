@@ -1,0 +1,7 @@
+# Example terraform.tfvars file
+# Copy this to terraform.tfvars and customize as needed
+
+# aws_region      = "us-east-1"
+# repository_name = "test-bench-bar-service"
+# image_tag       = "latest"
+
