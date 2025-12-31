@@ -73,6 +73,13 @@ The current goal is goal 3.
             * client
             * port mapping: 3000
         * env var: `http://bar-service:5150`
+* in EC2 -> Load Balancers create target group
+    * register target for port 3000
+* create ALB
+    * listener/rule to forward 80 to target group
+* configure foo to use ALB
+* go to ALB and get domain name
+* visit http://domain.amazon.com 
 
 ### Next
 
