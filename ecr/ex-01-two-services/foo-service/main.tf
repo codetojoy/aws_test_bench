@@ -39,11 +39,11 @@ resource "aws_ecr_repository" "demo" {
 resource "null_resource" "docker_build_push" {
   # Trigger rebuild when Dockerfile or source code changes
   triggers = {
-    dockerfile_hash  = filemd5("${path.module}/Dockerfile")
-    server_hash      = filemd5("${path.module}/server.js")
-    package_hash     = filemd5("${path.module}/package.json")
-    image_tag        = var.image_tag
-    repository_url   = aws_ecr_repository.demo.repository_url
+    dockerfile_hash = filemd5("${path.module}/Dockerfile")
+    server_hash     = filemd5("${path.module}/server.js")
+    package_hash    = filemd5("${path.module}/package.json")
+    image_tag       = var.image_tag
+    repository_url  = aws_ecr_repository.demo.repository_url
   }
 
   provisioner "local-exec" {

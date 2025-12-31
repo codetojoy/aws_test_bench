@@ -58,6 +58,6 @@ bar-response: ${JSON.stringify(barResponse.data)}
 });
 
 app.listen(port, () => {
-  console.log(`Foo running at http://localhost:${port}`);
+  console.log(`Foo running at http://localhost:${port} with BAR_SERVICE_URL=${BAR_SERVICE_URL}`);
 });
 
