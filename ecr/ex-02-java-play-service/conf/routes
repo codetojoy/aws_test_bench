@@ -1,0 +1,2 @@
+GET     /                           controllers.HomeController.index(request: Request)
+GET     /health                     controllers.HomeController.health()
