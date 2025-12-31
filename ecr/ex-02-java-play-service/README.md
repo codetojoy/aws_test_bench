@@ -13,8 +13,13 @@
             * define APPLICATION_SECRET
             * `./docker-build.sh`
             * `./docker-run.sh`
-    * TODO
         * 3. publish to ECR
+            * Usage
+            * `./docker-build.sh`
+            * `./init.sh`
+            * `./plan.sh`
+            * ./apply.sh`
+    * TODO
         * 4. demonstrate app by manually creating cluster, service, etc
         * 5. clone this project so that we build ECS architecture with Terraform
 
