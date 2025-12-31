@@ -46,9 +46,11 @@ The current goal is goal 3.
     * ensure default security-group is open for 5150 (restricted by IP)
     * test: `curl http://PUBLIC_IP:5150/api/message`
         * where `PUBLIC_IP` is from EC2 instance
-* gotchas
-    * huge cross-up between arm64 and amd64 (X86_64)
-    * my TF wasn't updating the image in ECR
+    * gotchas
+        * huge cross-up between arm64 and amd64 (X86_64)
+        * my TF wasn't updating the image in ECR
+* goal: in AWS Console, create a task definition and ECS task that exercises `foo`
+    * it did start, but didn't work, and now it won't start ? 
 
 ### Next
 
