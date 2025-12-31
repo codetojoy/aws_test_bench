@@ -1,0 +1,10 @@
+
+* v0.Dockerfile 
+    * Amazon Corretto 21
+    * on AWS ECR: 271 MB
+    * on local: 867 MB
+
+* v1.Dockerfile
+    * Amazon Corretto 21 alpine/headless
+    * on AWS ECR: 208 MB
+    * on local: 564 MB

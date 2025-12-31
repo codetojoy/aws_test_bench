@@ -16,10 +16,11 @@
         * 3. publish to ECR
             * Usage
             * `./docker-build.sh`
-            * `./init.sh`
-            * `./plan.sh`
-            * ./apply.sh`
-    * TODO
+            * `./tf-init.sh`
+            * `./tf-plan.sh`
+            * `./tf-apply.sh`
         * 4. demonstrate app by manually creating cluster, service, etc
+            * see README.ECS.md
+    * TODO
         * 5. clone this project so that we build ECS architecture with Terraform
 
