@@ -52,9 +52,31 @@ The current goal is goal 3.
 * goal: in AWS Console, create a task definition and ECS task that exercises `foo`
     * it did start, but didn't work, and now it won't start ? 
 
+### Usage: Goal 4
+
+* see video 102 in KG udemy course
+* bar
+    * publish Docker image to ECR
+    * create task def
+    * create cluster
+    * create service 
+        * use Service Connect and create namespace
+            * client/server
+            * port mapping: 5150
+            * DNS name: `bar-service` (MEGA for later)
+* foo
+    * publish Docker image to ECR
+    * create task def
+    * create cluster
+    * create service 
+        * use Service Connect with previous namespace
+            * client
+            * port mapping: 3000
+        * env var: `http://bar-service:5150`
+
 ### Next
 
-* continue with Udemy video 9x and work-along 
+* consider scripting ECS assets with Terraform
 
 ### Brainstorm
 
