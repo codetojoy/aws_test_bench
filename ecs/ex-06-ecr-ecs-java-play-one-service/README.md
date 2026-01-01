@@ -28,6 +28,11 @@
 * `./tf-init.sh`
 * `./tf-plan.sh`
 * `./tf-apply.sh`
+    * this can take several iterations for the container to start
+    * often errors between ECS and ECR, but it even happens when done manually  
+
+* tear-down is `./tf-destroy.sh`
+    * this will fail at ECR repo level, requiring images to be deleted
 
 ### Summary
 
