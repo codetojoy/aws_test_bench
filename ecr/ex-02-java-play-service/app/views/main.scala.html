@@ -1,4 +1,4 @@
-@(timestamp: String, ipAddress: String)
+@(timestamp: String, clientIpAddress: String, serverIpAddress: String)
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,8 @@
 <h3>TRACER :: ecr/ex-02</h3>
 
 <pre>
-ip: @ipAddress
+client ip: @clientIpAddress
+server ip: @serverIpAddress
 timestamp: @timestamp
 </pre>
 
