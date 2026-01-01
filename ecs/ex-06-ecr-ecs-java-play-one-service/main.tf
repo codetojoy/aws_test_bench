@@ -30,12 +30,75 @@ data "aws_subnets" "default" {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]
   }
+
+  filter {
+    name   = "default-for-az"
+    values = ["true"]
+  }
 }
 
 # Get default security group
 data "aws_security_group" "default" {
   vpc_id = data.aws_vpc.default.id
   name   = "default"
+}
+
+# Security group for ALB
+resource "aws_security_group" "alb" {
+  name        = "${var.repository_name}-alb-sg"
+  description = "Security group for Application Load Balancer"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    description = "HTTP from anywhere"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.repository_name}-alb-sg"
+    Environment = "demo"
+    ManagedBy   = "terraform"
+  }
+}
+
+# Security group for ECS tasks
+resource "aws_security_group" "ecs_tasks" {
+  name        = "${var.repository_name}-ecs-tasks-sg"
+  description = "Security group for ECS tasks"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    description     = "Allow traffic from ALB"
+    from_port       = 9000
+    to_port         = 9000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.repository_name}-ecs-tasks-sg"
+    Environment = "demo"
+    ManagedBy   = "terraform"
+  }
 }
 
 # Create ECR repository
@@ -145,7 +208,7 @@ resource "aws_ecs_task_definition" "app" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "512"  # 0.5 vCPU
-  memory                   = "3072" # 3 GB
+  memory                   = "1024" # 1 GB
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 
   container_definitions = jsonencode([{
@@ -180,6 +243,59 @@ resource "aws_ecs_task_definition" "app" {
   depends_on = [null_resource.docker_build_push]
 }
 
+# Target Group for ALB
+resource "aws_lb_target_group" "app" {
+  name        = "${var.repository_name}-tg"
+  port        = 9000
+  protocol    = "HTTP"
+  vpc_id      = data.aws_vpc.default.id
+  target_type = "ip"
+
+  health_check {
+    enabled             = true
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 5
+    interval            = 30
+    path                = "/health"
+    protocol            = "HTTP"
+    matcher             = "200"
+  }
+
+  tags = {
+    Name        = "${var.repository_name}-tg"
+    Environment = "demo"
+    ManagedBy   = "terraform"
+  }
+}
+
+# Application Load Balancer
+resource "aws_lb" "app" {
+  name               = "${var.repository_name}-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb.id]
+  subnets            = data.aws_subnets.default.ids
+
+  tags = {
+    Name        = "${var.repository_name}-alb"
+    Environment = "demo"
+    ManagedBy   = "terraform"
+  }
+}
+
+# ALB Listener
+resource "aws_lb_listener" "app" {
+  load_balancer_arn = aws_lb.app.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.app.arn
+  }
+}
+
 # ECS Service
 resource "aws_ecs_service" "app" {
   name            = "${var.repository_name}-service"
@@ -190,8 +306,14 @@ resource "aws_ecs_service" "app" {
 
   network_configuration {
     subnets          = data.aws_subnets.default.ids
-    security_groups  = [data.aws_security_group.default.id]
+    security_groups  = [aws_security_group.ecs_tasks.id]
     assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.app.arn
+    container_name   = var.repository_name
+    container_port   = 9000
   }
 
   tags = {
@@ -199,5 +321,7 @@ resource "aws_ecs_service" "app" {
     Environment = "demo"
     ManagedBy   = "terraform"
   }
+
+  depends_on = [aws_lb_listener.app]
 }
 

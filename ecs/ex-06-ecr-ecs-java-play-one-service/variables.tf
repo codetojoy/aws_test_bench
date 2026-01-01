@@ -19,7 +19,7 @@ variable "image_tag" {
 variable "desired_count" {
   description = "Number of ECS tasks to run"
   type        = number
-  default     = 1
+  default     = 3
 }
 
 variable "application_secret" {

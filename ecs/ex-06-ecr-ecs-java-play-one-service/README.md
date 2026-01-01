@@ -30,6 +30,9 @@
 * `./tf-apply.sh`
     * this can take several iterations for the container to start
     * often errors between ECS and ECR, but it even happens when done manually  
+* go to EC2 -> Load Balancers and look for DNS name (A record)
+    * browse to http://DNS_NAME (no port necessary)
+    * refresh to see private IP change as various instances are reached
 
 * tear-down is `./tf-destroy.sh`
     * this will fail at ECR repo level, requiring images to be deleted

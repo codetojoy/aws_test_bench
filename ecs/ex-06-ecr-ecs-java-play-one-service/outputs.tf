@@ -38,3 +38,13 @@ output "ecs_task_definition_arn" {
   value       = aws_ecs_task_definition.app.arn
 }
 
+output "alb_dns_name" {
+  description = "DNS name of the Application Load Balancer"
+  value       = aws_lb.app.dns_name
+}
+
+output "alb_url" {
+  description = "URL of the Application Load Balancer"
+  value       = "http://${aws_lb.app.dns_name}"
+}
+
