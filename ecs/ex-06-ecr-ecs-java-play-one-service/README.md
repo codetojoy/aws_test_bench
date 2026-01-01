@@ -1,11 +1,61 @@
 
+### Usage: localdev
+
+* copy `setvars.sh` to `my_setvars.sh`
+* edit `my_setvars.sh`
+* `chmod +x my_setvars.sh`
+* `. ./my_setvars.sh`
+* `./run.sh`
+
+### Usage: localdev Docker
+
+* copy `setvars.sh` to `my_setvars.sh`
+* edit `my_setvars.sh`
+* `chmod +x my_setvars.sh`
+* `. ./my_setvars.sh`
+* `./docker-build.sh`
+* `./docker-run.sh`
+
+### Usage: ECS
+
+* copy `setvars.sh` to `my_setvars.sh`
+* edit `my_setvars.sh`
+* `chmod +x my_setvars.sh`
+* copy `terraform.tfvars.example` to `terraform.tfvars`
+* edit `terraform.tfvars`
+* `. ./my_setvars.sh`
+* `./build-fat-jar.sh`
+* `./tf-ecr-init.sh`
+* `./tf-ecr-plan.sh`
+* `./tf-ecr-apply.sh`
+
 ### Summary
 
-* Goals
+* Completed Goals:
     * 0. [COMPLETE] read an example env-var and include in HTML page
-    * 1. test existing deployment of Docker image to ECR with Terraform
-    * 2. refactor ECR Terraform to prepare for ECS Terraform
-    * 3. build ECS architecture with Terraform
+    * 1. [COMPLETE] test existing deployment of Docker image to ECR with Terraform
+    * 2. [COMPLETE] refactor ECR Terraform to prepare for ECS Terraform
+        * Claude and I decided this wasn't necessary
+    * 3. [COMPLETE] build ECS architecture by Terraform configuration
+        * observe that we already have: Docker image can be created and pushed to ECR
+        * for the following actions (later), note: 
+            * use default VPC
+            * use default Security Group
+        * create ECS cluster
+        * create ECS task definition
+            * launch-type: Fargate
+            * instance size: 0.5 vCPU, 3 GB
+            * use ECR image from this project
+            * add port mapping for 9000 on HTTP
+            * define environment varable `APPLICATION_SECRET` with value of `default`
+            * define environment variable `MY_FOOBAR` with value of `default`
+            * disable log collection
+    * 3.1 [COMPLETE] tweaks to Goal 3
+        * set environment variable `APPLICATION_SECRET` to a value from the local machine
+        * set environment variable `MY_FOOBAR` to a value from the local machine
+* Current Goal:
+    * TBD
+* Backlog:
     * 4. read a secret from Secret Manager
 * Notes
     * this project was spawned from ~/ecr/ex-02-java-play-service

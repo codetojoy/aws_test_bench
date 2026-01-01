@@ -16,13 +16,14 @@ check_env_var() {
 
 check_env_var "AWS_ACCESS_KEY_ID"
 check_env_var "AWS_SECRET_ACCESS_KEY"
+check_env_var "APPLICATION_SECRET"
 
 # -------------------------------------------
 # main
 
-ROOT_DIR=$PWD
+export TF_VAR_application_secret=$APPLICATION_SECRET
+export TF_VAR_my_foobar=$MY_FOOBAR
 
 terraform apply 
 
-cd $ROOT_DIR
 echo "Ready."

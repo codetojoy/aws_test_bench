@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export APPLICATION_SECRET=CHANGE_ME
+export MY_FOOBAR=CHANGE_ME

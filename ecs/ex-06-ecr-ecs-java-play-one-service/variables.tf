@@ -16,3 +16,22 @@ variable "image_tag" {
   default     = "latest"
 }
 
+variable "desired_count" {
+  description = "Number of ECS tasks to run"
+  type        = number
+  default     = 1
+}
+
+variable "application_secret" {
+  description = "Application secret key for Play Framework"
+  type        = string
+  sensitive   = true
+  default     = "default"
+}
+
+variable "my_foobar" {
+  description = "Custom environment variable for demonstration"
+  type        = string
+  default     = "default"
+}
+
