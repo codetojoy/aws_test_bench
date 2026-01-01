@@ -25,9 +25,9 @@
 * edit `terraform.tfvars`
 * `. ./my_setvars.sh`
 * `./build-fat-jar.sh`
-* `./tf-ecr-init.sh`
-* `./tf-ecr-plan.sh`
-* `./tf-ecr-apply.sh`
+* `./tf-init.sh`
+* `./tf-plan.sh`
+* `./tf-apply.sh`
 
 ### Summary
 
