@@ -413,3 +413,50 @@ resource "aws_iam_role_policy_attachment" "ecs_task_s3_policy" {
   policy_arn = aws_iam_policy.s3_read_access.arn
 }
 
+# SSM Parameter for secret storage
+resource "aws_ssm_parameter" "secret" {
+  name        = "/test-bench-ex-07-secret"
+  description = "Secret parameter for test bench ex-07"
+  type        = "SecureString"
+  value       = var.ssm_secret_value
+
+  tags = {
+    Name        = "test-bench-ex-07-secret"
+    Environment = "demo"
+    ManagedBy   = "terraform"
+  }
+}
+
+# IAM policy for SSM read access
+resource "aws_iam_policy" "ssm_read_access" {
+  name        = "${var.repository_name}-ssm-read-policy"
+  description = "Policy to allow reading from SSM Parameter Store"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "ssm:GetParameter",
+          "ssm:GetParameters",
+          "ssm:DescribeParameters"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+
+  tags = {
+    Name        = "${var.repository_name}-ssm-read-policy"
+    Environment = "demo"
+    ManagedBy   = "terraform"
+  }
+}
+
+# Attach SSM read policy to task role
+resource "aws_iam_role_policy_attachment" "ecs_task_ssm_policy" {
+  role       = aws_iam_role.ecs_task_role.name
+  policy_arn = aws_iam_policy.ssm_read_access.arn
+}
+

@@ -1,0 +1,57 @@
+@(parameters: java.util.List[models.ParameterInfo])
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>SSM Parameters - ex-ecs-07</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h3 { color: #333; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    tr:hover { background-color: #ddd; }
+    .empty-message { color: #666; font-style: italic; margin-top: 20px; }
+    .masked-value { font-family: monospace; color: #666; }
+    a { color: #333; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+</style>
+</head>
+
+<body>
+<h3>SSM Parameter Listing - ex-ecs-07</h3>
+
+<p><a href="/">&larr; Back to Home</a></p>
+
+@if(parameters.isEmpty) {
+    <p class="empty-message">No parameters found.</p>
+} else {
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter Name</th>
+                <th>Type</th>
+                <th>Value (Masked)</th>
+                <th>Version</th>
+                <th>Last Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(param <- parameters) {
+                <tr>
+                    <td>@param.getName()</td>
+                    <td>@param.getType()</td>
+                    <td class="masked-value">@param.getMaskedValue()</td>
+                    <td>@param.getVersion()</td>
+                    <td>@param.getFormattedLastModified()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p><strong>Total parameters:</strong> @parameters.size()</p>
+}
+
+</body>
+</html>

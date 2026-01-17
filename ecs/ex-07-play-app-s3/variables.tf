@@ -41,3 +41,10 @@ variable "s3_bucket_name" {
   default     = "test-bench-bucket-ex07"
 }
 
+variable "ssm_secret_value" {
+  description = "Value for the SSM secret parameter"
+  type        = string
+  sensitive   = true
+  default     = "default-secret-value"
+}
+

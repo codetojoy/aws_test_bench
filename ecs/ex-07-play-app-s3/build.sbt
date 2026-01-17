@@ -9,7 +9,8 @@ lazy val root = (project in file("."))
     javacOptions ++= Seq("-source", "21", "-target", "21"),
     libraryDependencies ++= Seq(
       guice,
-      "software.amazon.awssdk" % "s3" % "2.25.16"
+      "software.amazon.awssdk" % "s3" % "2.25.16",
+      "software.amazon.awssdk" % "ssm" % "2.25.16"
     ),
     // Assembly settings for fat JAR
     assembly / assemblyJarName := "play-ecs-ex-07.jar",
