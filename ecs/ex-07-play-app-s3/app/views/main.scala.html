@@ -1,0 +1,28 @@
+@(timestamp: String, clientIpAddress: String, serverIpAddress: String, foobarValue: String)
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>ex-ecs-07</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+    a { color: #333; }
+</style>
+</head>
+
+<body>
+<h3>TRACER :: ex-07</h3>
+
+<pre>
+client ip: @clientIpAddress
+server ip: @serverIpAddress
+timestamp: @timestamp
+foobar: @foobarValue
+</pre>
+
+<p><a href="/files">View S3 Files &rarr;</a></p>
+
+</body>
+</html>
+

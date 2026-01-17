@@ -1,0 +1,68 @@
+@(files: java.util.List[models.FileInfo], bucketName: String)
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>S3 Files - ex-ecs-07</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h3 { color: #333; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    tr:hover { background-color: #ddd; }
+    .empty-message { color: #666; font-style: italic; margin-top: 20px; }
+    .bucket-info { background-color: #e7f3ff; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
+    .metadata { font-size: 0.85em; color: #666; }
+    a { color: #333; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+</style>
+</head>
+
+<body>
+<h3>S3 File Listing - ex-ecs-07</h3>
+
+<div class="bucket-info">
+    <strong>Bucket:</strong> @bucketName
+</div>
+
+<p><a href="/">&larr; Back to Home</a></p>
+
+@if(files.isEmpty) {
+    <p class="empty-message">No files found in the S3 bucket.</p>
+} else {
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Size</th>
+                <th>Last Modified</th>
+                <th>Metadata</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(file <- files) {
+                <tr>
+                    <td>@file.getKey()</td>
+                    <td>@file.getFormattedSize()</td>
+                    <td>@file.getFormattedLastModified()</td>
+                    <td class="metadata">
+                        @if(file.getMetadata().isEmpty) {
+                            <em>None</em>
+                        } else {
+                            @for((key, value) <- file.getMetadata()) {
+                                <strong>@key:</strong> @value<br/>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p><strong>Total files:</strong> @files.size()</p>
+}
+
+</body>
+</html>
